@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Weather</title>
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+{% block body %}
+<div style="text-align: center;">
+    <h1>Weather</h1>
+    <div class="form">
+        <form action="/" method='POST'>
+            <input type="text" name="city" id="city" placeholder="Enter the city">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <h3>{{ message }}</h3>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+{% if weather_data[0]['status'] %}
+    <h2>Current city: {{weather_data[0]['city']}}</h2>
+  <figure class="image is-50x50">
+      <img src="http://openweathermap.org/img/w/{{ weather_data[0]['icon']}}.png" alt="Image">
+  </figure>
+    <table align="center" >
+<tr>
+  <th>Weather Details</th>
+  </tr>
+ <tr>
+  <td align="left">Temperature</td>
+  <td>{{weather_data[0]['temperature']}} °C</td>
+ </tr>
+<tr>
+  <td align="left">Feels like</td>
+  <td>{{weather_data[0]['feels like']}} °C</td>
+</tr>
+<tr>
+  <td align="left">Humidity</td>
+  <td>{{weather_data[0]['humidity']}} %</td>
+</tr>
+<tr>
+  <td align="left">Description</td>
+  <td>{{weather_data[0]['description']}}</td>
+</tr>
+</table>
+
+{% endif %}
+
+
+</div>
+
+
+{% endblock %}
+
+</html>
